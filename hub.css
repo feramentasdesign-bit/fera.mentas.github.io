@@ -44,16 +44,16 @@ h1{margin:0;font-size:clamp(1.7rem,6.6vw,2.6rem);line-height:1.08;font-weight:65
   padding:var(--s4) 0;touch-action:pan-y;overflow-x:clip;
   -webkit-user-select:none;user-select:none;cursor:grab;outline:none}
 .stage.drag{cursor:grabbing}
-.track{position:relative;width:var(--w);height:calc(var(--w)*1.2946)}
+.track{position:relative;width:var(--w);height:calc(var(--w)*1.2946);perspective:calc(var(--w)*4.4);perspective-origin:50% 42%}
 
 /* Card: moldura clara com uma peça de gradiente; logotipo e texto no alto, o bicho saindo por baixo.
    Medidas do desenho de 1920x1080 em fração da largura do card (w). */
-.card{--tx:0;--ty:0;--r:0;--sx:1;--sy:1;--k:0;--o:1;--v:0;--z:10;
+.card{--tx:0;--ty:0;--r:0;--ry:0;--s:1;--o:1;--v:0;--z:10;
   position:absolute;inset:0;isolation:isolate;border-radius:calc(var(--w)*.15356);
   background-color:#E8ECF6;background-size:100% 100%;
   box-shadow:0 18px 40px rgba(1,30,62,.14),inset 0 1px 0 rgba(255,255,255,.9);
-  transform:translate(calc(var(--tx)*var(--w)),calc(var(--ty)*var(--w))) rotate(calc(var(--r)*1deg)) scale(var(--sx),var(--sy)) skewX(calc(var(--k)*1deg));
-  transform-origin:50% 50%;opacity:var(--o);z-index:var(--z);
+  transform:translate(calc(var(--tx)*var(--w)),calc(var(--ty)*var(--w))) rotate(calc(var(--r)*1deg)) rotateY(calc(var(--ry)*1deg)) scale(var(--s));
+  transform-origin:50% 50%;backface-visibility:hidden;opacity:var(--o);z-index:var(--z);
   translate:0 var(--lift,0);transition:translate 200ms var(--ease);will-change:transform,opacity}
 .card:not(.on):hover{--lift:-8px}
 .card::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;background:#fff;opacity:var(--v)}

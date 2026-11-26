@@ -89,10 +89,12 @@
   let pos = 0, target = 0, spread = reduce.matches ? 1 : 0;
   let cur = -1, raf = 0, last = 0, dragging = false, justDragged = false;
 
-  /* posições do leque (medidas no desenho de 1920x1080, em fração da largura do card central) */
+  /* posições do leque (medidas no desenho de 1920x1080; tx e ty em fração da largura do card central).
+     Os laterais ficam inclinados, giram no eixo vertical com perspectiva (faces voltadas para o centro)
+     e usam escala uniforme, para não deformar logotipo, texto nem bicho. */
   const SLOT = {
-    L: { tx: -0.7833, ty: 0.0879, r: -14.33, sx: 0.74, sy: 0.84, k: 1.53 },
-    R: { tx: 0.8132, ty: 0.0841, r: 9.5451, sx: 0.7447, sy: 0.8344, k: -1.0427 }
+    L: { tx: -0.7610, ty: 0.0726, r: -15.69, ry: 31.68, s: 0.798 },
+    R: { tx: 0.7920, ty: 0.0735, r: 10.48, ry: -31.52, s: 0.797 }
   };
 
   function draw() {
@@ -105,18 +107,16 @@
       const tx = (S.tx * t + sg * ex * 0.55) * sp;
       const ty = (S.ty * t + ex * 0.12) * sp;
       const r = (S.r * t + sg * ex * 6) * sp;
-      const sx = 1 + ((S.sx - 1) * t - ex * 0.06) * sp;
-      const sy = 1 + ((S.sy - 1) * t - ex * 0.06) * sp;
-      const k = S.k * t * sp;
+      const ry = S.ry * t * sp;
+      const sc = 1 + ((S.s - 1) * t - ex * 0.06) * sp;
       const edge = N >= 3 ? (N / 2 - ad) / 0.5 : 1;
       const o = clamp(Math.min(edge, (2.7 - ad) / 0.7), 0, 1);
       const st = card.style;
       st.setProperty("--tx", tx.toFixed(4));
       st.setProperty("--ty", ty.toFixed(4));
       st.setProperty("--r", r.toFixed(3));
-      st.setProperty("--sx", sx.toFixed(4));
-      st.setProperty("--sy", sy.toFixed(4));
-      st.setProperty("--k", k.toFixed(3));
+      st.setProperty("--ry", ry.toFixed(3));
+      st.setProperty("--s", sc.toFixed(4));
       st.setProperty("--o", o.toFixed(3));
       st.setProperty("--v", (t * 0.26).toFixed(3));
       st.setProperty("--z", String(100 - Math.round(ad * 10)));
